@@ -6,17 +6,9 @@ A powerful CLion plugin for visual effects development, providing shader code ge
 
 ## 📥 Installation
 
-### Method 1: From JetBrains Plugin Marketplace (Recommended)
+### Manual Installation
 
-1. Open CLion
-2. Go to `Settings/Preferences → Plugins`
-3. In the `Marketplace` tab, search for "**Magicka Creator**"
-4. Click `Install`
-5. Restart CLion
-
-### Method 2: Manual Installation
-
-1. Download the latest plugin ZIP file from [Releases](https://github.com/yourusername/magicka-clion/releases)
+1. Download the latest plugin ZIP file from the `build/distributions/` directory after building
 2. Open CLion, go to `Settings/Preferences → Plugins`
 3. Click the gear icon ⚙️ → `Install Plugin from Disk...`
 4. Select the downloaded ZIP file
@@ -100,6 +92,15 @@ Shader configuration files use the `.sl.json` extension. Example:
 ./gradlew test
 ```
 
+### CI/CD
+
+This project uses GitLab CI/CD for continuous integration:
+
+- **Build**: Runs on every commit to build and test the plugin
+- **Test**: Executes all unit tests automatically
+- **Package**: Creates distributable plugin package on master branch
+- **Release**: Automatically builds and archives plugin when a tag is pushed
+
 ### Project Structure
 
 ```
@@ -141,8 +142,16 @@ This project is licensed under the MIT License.
 
 ## 🔗 Links
 
-- [GitHub Repository](https://github.com/yourusername/magicka-clion)
-- [Issue Tracker](https://github.com/yourusername/magicka-clion/issues)
+- [GitLab Repository](https://git.corp.kuaishou.com/facemagic/magicka-intellij)
+- [Issue Tracker](https://git.corp.kuaishou.com/facemagic/magicka-intellij/-/issues)
+
+---
+
+## 👤 Author
+
+- **Name**: wangyang
+- **Email**: wangyang@kuaishou.com
+- **Organization**: Kuaishou FaceMagic Team
 
 ---
 

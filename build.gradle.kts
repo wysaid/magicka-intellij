@@ -3,7 +3,7 @@ plugins {
     kotlin("jvm") version "2.1.21"
 }
 
-group = "org.magicka.creator"
+group = "com.kwai.magicka"
 version = project.findProperty("pluginVersion") as String? ?: "1.0.0"
 
 repositories {

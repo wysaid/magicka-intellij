@@ -1,0 +1,72 @@
+# GitLab CI/CD Configuration for Magicka IntelliJ Plugin
+
+image: gradle:8.5-jdk17
+
+variables:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
+
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - .gradle/
+    - build/
+
+stages:
+  - build
+  - test
+  - package
+
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+  - chmod +x ./gradlew
+
+# 构建任务
+build:
+  stage: build
+  script:
+    - ./gradlew clean assemble --info
+  artifacts:
+    paths:
+      - build/libs/
+    expire_in: 1 week
+
+# 测试任务
+test:
+  stage: test
+  script:
+    - ./gradlew test --info
+  artifacts:
+    when: always
+    reports:
+      junit: build/test-results/test/TEST-*.xml
+    paths:
+      - build/reports/tests/
+    expire_in: 1 week
+
+# 打包插件
+package:
+  stage: package
+  script:
+    - ./gradlew buildPlugin --info
+  artifacts:
+    paths:
+      - build/distributions/
+    expire_in: 1 month
+  only:
+    - master
+    - tags
+
+# 发布任务（仅在打 tag 时触发）
+release:
+  stage: package
+  script:
+    - ./gradlew buildPlugin
+    - echo "Plugin built successfully"
+    - ls -lh build/distributions/
+  artifacts:
+    paths:
+      - build/distributions/*.zip
+    expire_in: 3 months
+  only:
+    - tags

@@ -23,7 +23,7 @@ class HelpAction : AnAction() {
         val project = e.project
 
         // 获取插件真实版本号（找不到时使用默认值）
-        val pluginVersion = PluginManagerCore.getPlugin(PluginId.getId("org.magicka.creator"))?.version ?: "1.0.0"
+        val pluginVersion = PluginManagerCore.getPlugin(PluginId.getId("com.kwai.magicka"))?.version ?: "1.0.0"
 
         // 显示插件信息对话框
         Messages.showInfoMessage(
