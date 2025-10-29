@@ -1,0 +1,49 @@
+<idea-plugin require-restart="false">
+    <id>org.magicka.creator</id>
+    <name>Magicka Creator</name>
+    <!-- 版本号由 Gradle 构建时自动注入 -->
+    <vendor email="magicka@example.com" url="https://github.com/yourusername/magicka-clion">Magicka Team</vendor>
+    
+    <!-- 国际化资源包 -->
+    <resource-bundle>messages.MagickaBundle</resource-bundle>
+    
+    <description>
+        Magicka plugin for CLion IDE, providing shader code generation and text processing tools for visual effects development.
+    </description>
+    
+    <!-- 兼容性范围: 从 CLion 2023.3 (233) 开始，向后持续兼容 -->
+    <idea-version since-build="233"/>
+    
+    <!-- 更新日志由 Gradle 构建时从 CHANGELOG.md 注入 -->
+    
+    <depends>com.intellij.modules.platform</depends>
+    <!-- CLion C/C++ 支持 - 必需依赖 -->
+    <depends>com.intellij.clion</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- 注册通知组 -->
+        <notificationGroup id="Magicka Plugin Notifications" displayType="BALLOON" isLogByDefault="true"/>
+    </extensions>
+
+    <actions>
+        <!-- Magicka 菜单组 - 在工具菜单中显示为带子菜单的选项 -->
+        <group id="org.magicka.MagickaOptionsGroup" 
+               class="org.magicka.action.MagickaOptionsGroup"
+               popup="true">
+            
+            <!-- 帮助/关于 Action -->
+            <action id="org.magicka.HelpAction"
+                    class="org.magicka.HelpAction"/>
+            
+            <!-- 添加到工具菜单 -->
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+        </group>
+        
+        <!-- 处理 .sl.json 文件的 Action - 添加到编辑器右键菜单 -->
+        <action id="org.magicka.ProcessShaderJsonAction"
+                class="org.magicka.action.ProcessShaderJsonAction">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="first"/>
+        </action>
+    </actions>
+</idea-plugin>

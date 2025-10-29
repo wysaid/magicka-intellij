@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <!-- 魔法紫色渐变 -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9333EA;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#7C3AED;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6366F1;stop-opacity:1" />
+    </linearGradient>
+    <!-- 星光效果 -->
+    <radialGradient id="starGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0" />
+    </radialGradient>
+    <!-- 文字阴影 -->
+    <filter id="textShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="0" dy="2" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.4"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 圆角矩形背景 -->
+  <rect x="8" y="8" width="112" height="112" rx="28" ry="28" fill="url(#bgGradient)"/>
+  
+  <!-- 魔法星星装饰 -->
+  <circle cx="28" cy="28" r="3" fill="url(#starGlow)"/>
+  <circle cx="100" cy="32" r="2.5" fill="url(#starGlow)"/>
+  <circle cx="32" cy="100" r="2" fill="url(#starGlow)"/>
+  <circle cx="96" cy="96" r="3" fill="url(#starGlow)"/>
+  
+  <!-- 魔法棒图标 -->
+  <g transform="translate(30, 30)">
+    <!-- 棒身 -->
+    <line x1="10" y1="58" x2="48" y2="20" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+    <!-- 星星 -->
+    <path d="M 50 10 L 54 18 L 63 19 L 56.5 25 L 58 34 L 50 29.5 L 42 34 L 43.5 25 L 37 19 L 46 18 Z" 
+          fill="#FFD700" stroke="#FFFFFF" stroke-width="1.5"/>
+    <!-- 魔法闪光 -->
+    <circle cx="20" cy="48" r="2" fill="#FFFFFF" opacity="0.8"/>
+    <circle cx="28" cy="40" r="1.5" fill="#FFFFFF" opacity="0.6"/>
+    <circle cx="36" cy="32" r="2.5" fill="#FFFFFF" opacity="0.7"/>
+  </g>
+  
+  <!-- 底部文字 -->
+  <text x="50%" y="90%" 
+        font-family="Arial, Helvetica, sans-serif" 
+        font-size="14" 
+        font-weight="bold" 
+        text-anchor="middle" 
+        dominant-baseline="middle" 
+        fill="#FFFFFF"
+        letter-spacing="1">Magicka</text>
+</svg>

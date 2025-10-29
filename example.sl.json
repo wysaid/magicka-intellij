@@ -1,0 +1,21 @@
+{
+  "shader": {
+    "name": "ExampleEffect",
+    "type": "fragment",
+    "version": "1.0",
+    "description": "An example shader configuration for Magicka"
+  },
+  "uniforms": [
+    {
+      "name": "time",
+      "type": "float"
+    },
+    {
+      "name": "resolution",
+      "type": "vec2"
+    }
+  ],
+  "code": {
+    "main": "void main() { gl_FragColor = vec4(1.0, 0.5, 0.0, 1.0); }"
+  }
+}
