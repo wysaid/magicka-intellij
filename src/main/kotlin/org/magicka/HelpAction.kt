@@ -17,6 +17,8 @@ class HelpAction : AnAction() {
         // 设置国际化的菜单文本
         templatePresentation.text = MagickaBundle.message("menu.about")
         templatePresentation.description = MagickaBundle.message("menu.about.description")
+        // 设置菜单图标
+        templatePresentation.icon = MagickaIcons.MAGICKA_ICON
     }
 
     override fun actionPerformed(e: AnActionEvent) {

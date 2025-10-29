@@ -7,6 +7,7 @@ import com.intellij.openapi.diagnostic.Logger
 import com.intellij.notification.NotificationGroupManager
 import com.intellij.notification.NotificationType
 import org.magicka.MagickaBundle
+import org.magicka.MagickaIcons
 
 /**
  * 处理 .sl.json 文件的 Action
@@ -19,6 +20,8 @@ class ProcessShaderJsonAction : AnAction() {
         // 设置国际化的菜单文本
         templatePresentation.text = MagickaBundle.message("action.process.shader.json")
         templatePresentation.description = MagickaBundle.message("action.process.shader.json.description")
+        // 设置菜单图标
+        templatePresentation.icon = MagickaIcons.MAGICKA_ICON
     }
 
     override fun actionPerformed(e: AnActionEvent) {
