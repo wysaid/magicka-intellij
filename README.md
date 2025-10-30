@@ -58,7 +58,7 @@ cd magicka-intellij
 
 ---
 
-## � 使用指南
+## 使用指南
 
 ### 处理 Shader 配置文件
 
