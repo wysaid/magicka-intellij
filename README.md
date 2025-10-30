@@ -1,4 +1,4 @@
-# Magicka Creator - CLion 插件
+# Magicka - CLion 插件
 
 ✨ 为视觉特效开发者打造的 Shader 代码生成工具
 
@@ -6,7 +6,7 @@
 
 ## 📖 简介
 
-Magicka Creator 是一款为 CLion 开发的插件,旨在简化 Shader 开发工作流。通过集成 Magicka CLI 工具,提供自动化的 Shader 模板生成功能,支持多种文件格式,帮助开发者快速完成 Shader 配置到代码的转换。
+Magicka 是一款为 CLion 开发的插件,旨在简化 Shader 开发工作流。通过集成 Magicka CLI 工具,提供自动化的 Shader 模板生成功能,支持多种文件格式,帮助开发者快速完成 Shader 配置到代码的转换。
 
 ### 核心特性
 
@@ -258,6 +258,6 @@ A: 确保同目录下存在 `.sl.json` 文件,并且文件中的 `data` 数组�
 
 ---
 
-**Magicka Creator** - 让 Shader 开发更简单 ✨
+**Magicka** - 让 Shader 开发更简单 ✨
 
 Made with ❤️ by Kuaishou FaceMagic Team

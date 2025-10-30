@@ -1,6 +1,6 @@
 <idea-plugin require-restart="false">
     <id>com.kwai.magicka</id>
-    <name>Magicka Creator</name>
+    <name>Magicka</name>
     <!-- 版本号由 Gradle 构建时自动注入 -->
     <vendor email="wangyang@kuaishou.com" url="https://git.corp.kuaishou.com/facemagic/magicka-intellij">Kuaishou FaceMagic Team</vendor>
     
