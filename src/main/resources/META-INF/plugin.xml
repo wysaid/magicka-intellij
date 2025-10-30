@@ -8,17 +8,15 @@
     <resource-bundle>messages.MagickaBundle</resource-bundle>
     
     <description>
-        Magicka plugin for CLion IDE, providing shader code generation and text processing tools for visual effects development.
+        Magicka plugin for JetBrains IDEs, providing shader code generation and text processing tools for visual effects development.
     </description>
     
-    <!-- 兼容性范围: 从 CLion 2023.3 (233) 开始，向后持续兼容 -->
+    <!-- Compatibility range: From build 233 (2023.3) onwards, continuously compatible with newer versions -->
     <idea-version since-build="233"/>
     
-    <!-- 更新日志由 Gradle 构建时从 CHANGELOG.md 注入 -->
+    <!-- Changelog injected by Gradle build from CHANGELOG.md -->
     
     <depends>com.intellij.modules.platform</depends>
-    <!-- CLion C/C++ 支持 - 必需依赖 -->
-    <depends>com.intellij.clion</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- 注册通知组 -->

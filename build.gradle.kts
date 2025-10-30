@@ -16,21 +16,21 @@ dependencies {
 
 intellij {
     version.set("2023.3")
-    type.set("CL") // CLion
-    plugins.set(listOf("com.intellij.clion"))
+    type.set("IC") // IntelliJ IDEA Community Edition (for universal compatibility)
+    // No specific plugins required - compatible with all JetBrains IDEs
 }
 
 tasks.patchPluginXml {
     version.set(project.version.toString())
     sinceBuild.set("233")
-    untilBuild.set("252.*")  // 2025.2 - 当前已知的最新主分支
+    untilBuild.set("252.*")  // 2025.2 - current known latest main branch
     changeNotes.set("""
         <h3>Version ${project.version}</h3>
         <ul>
             <li>Support for <b>Shader code generation</b> from .sl.json configuration files</li>
-            <li>CLion-specific integration for visual effects development</li>
+            <li>Integration for visual effects development across JetBrains IDEs</li>
             <li>Text processing and code generation utilities</li>
-            <li>Supports CLion 2023.3 and above</li>
+            <li>Supports JetBrains IDEs 2023.3 and above</li>
             <li>Cross-platform support (Windows, macOS, Linux)</li>
         </ul>
     """.trimIndent())

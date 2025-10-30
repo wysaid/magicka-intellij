@@ -1,12 +1,15 @@
-# Magicka - CLion 插件
+# Magicka Creator - JetBrains 插件
 
 ✨ 为视觉特效开发者打造的 Shader 代码生成工具
+
+[![Build Status](https://git.corp.kuaishou.com/facemagic/magicka-intellij/badges/master/pipeline.svg)](https://git.corp.kuaishou.com/facemagic/magicka-intellij/-/pipelines)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
 
 ## 📖 简介
 
-Magicka 是一款为 CLion 开发的插件,旨在简化 Shader 开发工作流。通过集成 Magicka CLI 工具,提供自动化的 Shader 模板生成功能,支持多种文件格式,帮助开发者快速完成 Shader 配置到代码的转换。
+Magicka Creator 是一款为 JetBrains 系列 IDE 开发的插件,旨在简化 Shader 开发工作流。通过集成 Magicka CLI 工具,提供自动化的 Shader 模板生成功能,支持多种文件格式,帮助开发者快速完成 Shader 配置到代码的转换。
 
 ### 核心特性
 
@@ -23,7 +26,7 @@ Magicka 是一款为 CLion 开发的插件,旨在简化 Shader 开发工作流�
 
 ### 前置要求
 
-1. **CLion 2023.3 或更高版本**
+1. **JetBrains IDE 2023.3 或更高版本** (IntelliJ IDEA, PyCharm, WebStorm, CLion, 等)
 2. **Node.js 和 npm** - [下载安装](https://nodejs.org/)
 3. **Magicka CLI 工具** (插件会自动检测并提示安装)
 
@@ -51,10 +54,10 @@ cd magicka-intellij
 #### 方法二: 手动安装
 
 1. 下载插件 ZIP 文件
-2. 打开 CLion,前往 `Settings/Preferences → Plugins`
+2. 打开 JetBrains IDE,前往 `Settings/Preferences → Plugins`
 3. 点击齿轮图标 ⚙️ → `Install Plugin from Disk...`
 4. 选择下载的 ZIP 文件
-5. 重启 CLion
+5. 重启 IDE
 
 ---
 
@@ -100,7 +103,7 @@ cd magicka-intellij
 
 ### 查看插件信息
 
-前往 `Tools → Magicka → 关于 Magicka` 查看插件版本和信息。
+在 IDE 中，前往 **Tools → Magicka → 关于 Magicka** 查看插件版本和详细信息。
 
 ---
 
@@ -111,7 +114,7 @@ cd magicka-intellij
 - **语言**: Kotlin 2.1.21
 - **构建工具**: Gradle 8.x
 - **插件框架**: IntelliJ Platform Plugin SDK (Gradle IntelliJ Plugin 1.17.4)
-- **目标平台**: CLion 2023.3+
+- **目标平台**: JetBrains IDEs 2023.3+ (测试环境: CLion)
 - **JDK**: 17
 
 ### 构建命令
@@ -120,7 +123,7 @@ cd magicka-intellij
 # 构建插件
 ./gradlew buildPlugin
 
-# 启动 CLion 测试插件
+# 启动测试 IDE（默认使用 IntelliJ IDEA，可在 CLion 中测试）
 ./gradlew runIde
 
 # 运行测试
@@ -202,13 +205,11 @@ magicka-clion/
 
 ## 📋 常见问题
 
-### Q: 提示 "Node.js 未安装" 怎么办?
+#### 提示 "Node.js 未安装"
 
-A: 前往 <https://nodejs.org/> 下载安装 Node.js,安装完成后重启 IDE。
+前往 <https://nodejs.org/> 下载安装 Node.js，安装完成后重启 IDE。
 
-### Q: 提示 "Magicka CLI 未安装" 怎么办?
-
-A: 在终端执行: `npm install -g @ks-facemagic/magicka --registry https://npm.corp.kuaishou.com`
+#### 提示 "Magicka CLI 未安装"
 
 ### Q: 提示版本过低怎么办?
 

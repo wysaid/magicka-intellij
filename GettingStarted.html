@@ -1,0 +1,178 @@
+<h1>Getting Started with Magicka Creator</h1>
+
+<p>
+    Magicka Creator is a JetBrains IDE plugin designed for shader developers. By integrating the Magicka CLI tool, 
+    it automates shader template code generation and significantly improves development efficiency.
+</p>
+
+<hr>
+
+<h2>Prerequisites</h2>
+
+<h3>1. Install Node.js</h3>
+<p>Magicka Creator requires Node.js and npm environment.</p>
+<ul>
+    <li>Visit <a href="https://nodejs.org/" target="_blank">https://nodejs.org/</a> to download and install Node.js (LTS version recommended)</li>
+    <li>After installation, verify in terminal:</li>
+</ul>
+<pre><code>node --version
+npm --version</code></pre>
+
+<h3>2. Install Magicka CLI</h3>
+<p>Execute the following command in terminal to install Magicka CLI:</p>
+<pre><code>npm install -g @ks-facemagic/magicka --registry https://npm.corp.kuaishou.com</code></pre>
+
+<p>Verify after installation:</p>
+<pre><code>npx magicka --version</code></pre>
+
+<p><strong>Note:</strong> The plugin requires Magicka CLI version >= 0.37.2</p>
+
+<hr>
+
+<h2>Main Features</h2>
+
+<h3>1. Process Shader Configuration Files (.sl.json)</h3>
+
+<h4>Usage</h4>
+<ol>
+    <li>Create or open a <code>.sl.json</code> file in your project</li>
+    <li>Right-click the file and select <strong>Magicka → Process Shader Configuration</strong></li>
+    <li>Or use keyboard shortcuts:
+        <ul>
+            <li><strong>macOS</strong>: <kbd>Cmd</kbd> + <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>L</kbd></li>
+            <li><strong>Windows/Linux</strong>: <kbd>Ctrl</kbd> + <kbd>Win</kbd> + <kbd>Alt</kbd> + <kbd>L</kbd></li>
+        </ul>
+    </li>
+</ol>
+
+<h4>Configuration File Format</h4>
+<pre><code>{
+  "data": [
+    {
+      "vsh": "shader.spv.vert",
+      "fsh": "shader.spv.frag"
+    }
+  ]
+}</code></pre>
+
+<p>The plugin will automatically call <code>npx magicka generate-starlight-template</code> to generate the corresponding shader template code.</p>
+
+<h3>2. Process SPV Shader Files (.spv.vert / .spv.frag)</h3>
+
+<h4>Usage</h4>
+<ol>
+    <li>Right-click a <code>.spv.vert</code> or <code>.spv.frag</code> file</li>
+    <li>Select <strong>Magicka → Process Shader Configuration</strong> or use the keyboard shortcut</li>
+</ol>
+
+<h4>Workflow</h4>
+<p>The plugin will automatically:</p>
+<ul>
+    <li>Find all <code>.sl.json</code> configuration files in the same directory</li>
+    <li>Parse the configuration and filter entries that reference the current file</li>
+    <li>Generate shader templates for each matched configuration</li>
+    <li>Display processing result notifications</li>
+</ul>
+
+<hr>
+
+<h2>First Use</h2>
+
+<h3>Automatic Environment Detection</h3>
+<p>When the plugin runs for the first time, it will automatically check:</p>
+<ul>
+    <li><strong>npm Environment</strong> - Detect if npm is available</li>
+    <li><strong>Magicka CLI</strong> - Detect if it's globally installed</li>
+    <li><strong>Version Check</strong> - Verify if the CLI version meets requirements (checked once per IDE session)</li>
+</ul>
+
+<h3>Environment Issue Resolution</h3>
+
+<h4>Prompt: "Node.js Not Installed"</h4>
+<p>Visit <a href="https://nodejs.org/" target="_blank">nodejs.org</a> to download and install Node.js, then restart your IDE.</p>
+
+<h4>Prompt: "Magicka CLI Not Installed"</h4>
+<p>Execute the installation command in terminal:</p>
+<pre><code>npm install -g @ks-facemagic/magicka --registry https://npm.corp.kuaishou.com</code></pre>
+
+<h4>Prompt: "Version Too Low"</h4>
+<p>Execute the upgrade command in terminal:</p>
+<pre><code>npm update -g @ks-facemagic/magicka --registry https://npm.corp.kuaishou.com</code></pre>
+
+<hr>
+
+<h2>Usage Tips</h2>
+
+<h3>Keyboard Shortcuts</h3>
+<p>To improve efficiency, memorize the shortcuts:</p>
+<ul>
+    <li><strong>macOS</strong>: <kbd>Cmd</kbd> + <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>L</kbd></li>
+    <li><strong>Windows/Linux</strong>: <kbd>Ctrl</kbd> + <kbd>Win</kbd> + <kbd>Alt</kbd> + <kbd>L</kbd></li>
+</ul>
+
+<h3>Batch Processing</h3>
+<p>When you have multiple SPV files to process:</p>
+<ol>
+    <li>Ensure all files are in the same directory</li>
+    <li>Create a unified <code>.sl.json</code> configuration file</li>
+    <li>Process each SPV file in sequence, the plugin will automatically match configurations</li>
+</ol>
+
+<h3>View Processing Results</h3>
+<ul>
+    <li><strong>On Success</strong> - A notification is displayed with generated code snippets (first 10 lines)</li>
+    <li><strong>On Failure</strong> - Detailed error messages are shown (first 20 lines) for troubleshooting</li>
+</ul>
+
+<hr>
+
+<h2>Common Scenarios</h2>
+
+<h3>Scenario 1: Creating a New Shader Project</h3>
+<ol>
+    <li>Create the project directory structure</li>
+    <li>Create a <code>.sl.json</code> configuration file and define shader pairs</li>
+    <li>Create the corresponding <code>.spv.vert</code> and <code>.spv.frag</code> files</li>
+    <li>Use the plugin to generate template code</li>
+    <li>Write specific logic based on the generated template</li>
+</ol>
+
+<h3>Scenario 2: Modifying Existing Shaders</h3>
+<ol>
+    <li>Modify the <code>.spv.vert</code> or <code>.spv.frag</code> file</li>
+    <li>Use the plugin to regenerate templates (using the shortcut)</li>
+    <li>The plugin will automatically update related code based on configuration</li>
+</ol>
+
+<h3>Scenario 3: Multi-Configuration Management</h3>
+<ol>
+    <li>Create multiple <code>.sl.json</code> files in the same directory</li>
+    <li>Each configuration file manages different shader combinations</li>
+    <li>When processing SPV files, the plugin will automatically match all related configurations</li>
+</ol>
+
+<hr>
+
+<h2>More Information</h2>
+
+<h3>View Plugin Information</h3>
+<p>In your JetBrains IDE, go to <strong>Tools → Magicka → About Magicka</strong> to view plugin version and detailed information.</p>
+
+<h3>Language Support</h3>
+<p>The plugin fully supports Chinese and English interfaces, automatically switching based on system language.</p>
+
+<h3>Get Help</h3>
+<ul>
+    <li>Project Repository: <a href="https://git.corp.kuaishou.com/facemagic/magicka-intellij" target="_blank">https://git.corp.kuaishou.com/facemagic/magicka-intellij</a></li>
+    <li>Issue Tracker: <a href="https://git.corp.kuaishou.com/facemagic/magicka-intellij/-/issues" target="_blank">https://git.corp.kuaishou.com/facemagic/magicka-intellij/-/issues</a></li>
+</ul>
+
+<hr>
+
+<h2>Start Using</h2>
+<p>
+    Now that you understand the basic usage of Magicka Creator, you can start experiencing the convenience of automated shader development!
+</p>
+<p>
+    Remember to use the shortcut <kbd>Cmd/Ctrl</kbd> + <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>L</kbd> to quickly process files for more efficient development!
+</p>
