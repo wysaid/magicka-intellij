@@ -2,9 +2,6 @@
 
 ✨ 为视觉特效开发者打造的 Shader 代码生成工具
 
-[![Build Status](https://git.corp.kuaishou.com/facemagic/magicka-intellij/badges/master/pipeline.svg)](https://git.corp.kuaishou.com/facemagic/magicka-intellij/-/pipelines)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 ---
 
 ## 📖 简介
