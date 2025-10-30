@@ -44,6 +44,9 @@
                 class="org.magicka.action.ProcessShaderJsonAction">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
             <add-to-group group-id="ProjectViewPopupMenu" anchor="first"/>
+            <!-- 快捷键绑定：ctrl + alt + meta + L（mac 为 ctrl+cmd+alt+L，win 为 ctrl+win+alt+L） -->
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt meta L"/>
+            <keyboard-shortcut keymap="Mac OS X" first-keystroke="ctrl alt meta L"/>
         </action>
     </actions>
 </idea-plugin>
