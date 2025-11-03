@@ -28,6 +28,29 @@
             },
             "group": "build",
             "problemMatcher": []
+        },
+        {
+            "label": "Show Plugin Artifact",
+            "type": "shell",
+            "osx": {
+                "command": "LATEST=$(ls -t build/distributions/*.zip 2>/dev/null | head -n1); if [ -f \"$LATEST\" ]; then open -R \"$LATEST\"; else echo 'No artifact found in build/distributions/'; fi"
+            },
+            "windows": {
+                "command": "$latest = Get-ChildItem -Path build/distributions/*.zip -ErrorAction SilentlyContinue | Sort-Object LastWriteTime -Descending | Select-Object -First 1; if ($latest) { explorer /select,$latest.FullName } else { Write-Host 'No artifact found in build/distributions/' }",
+                "options": {
+                    "shell": {
+                        "executable": "powershell.exe"
+                    }
+                }
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "close": true
+            }
         }
     ]
 }
