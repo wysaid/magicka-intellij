@@ -13,30 +13,55 @@ data class JetBrainsProductResponse(
 )
 
 object VersionChecker {
-    private const val JETBRAINS_API = "https://data.services.jetbrains.com/products/releases?code=CL&latest=true&type=release"
+    private const val JETBRAINS_API_RELEASE = "https://data.services.jetbrains.com/products/releases?code=CL&latest=true&type=release"
+    private const val JETBRAINS_API_EAP = "https://data.services.jetbrains.com/products/releases?code=CL&latest=true&type=eap"
     
     /**
-     * Get CLion latest major version number (e.g. 252)
+     * Get CLion version info from API
      */
-    fun getLatestClionBuildNumber(): String {
+    private fun getVersionInfo(apiUrl: String, versionType: String): Pair<String, String>? {
         return try {
-            val json = URL(JETBRAINS_API).readText()
+            val json = URL(apiUrl).readText()
             val gson = Gson()
             val response = gson.fromJson(json, JetBrainsProductResponse::class.java)
             
-            val latestRelease = response.CL.firstOrNull()
-                ?: throw GradleException("Unable to get CLion version information from JetBrains API")
+            val latestRelease = response.CL.firstOrNull() ?: return null
             
             // Extract major version number (e.g. extract "252" from "252.100.200")
-            val buildNumber = latestRelease.build.split(".").firstOrNull()
-                ?: throw GradleException("Unable to parse CLion build number: ${latestRelease.build}")
+            val buildNumber = latestRelease.build.split(".").firstOrNull() ?: return null
             
-            println("✓ CLion latest version: ${latestRelease.version} (build: ${latestRelease.build})")
-            println("✓ Major version number: $buildNumber")
+            println("✓ CLion latest $versionType version: ${latestRelease.version} (build: ${latestRelease.build}, major: $buildNumber)")
             
-            buildNumber
+            Pair(buildNumber, latestRelease.version)
         } catch (e: Exception) {
-            throw GradleException("Failed to get CLion latest version: ${e.message}", e)
+            println("⚠️  Warning: Failed to get CLion $versionType version: ${e.message}")
+            null
+        }
+    }
+    
+    /**
+     * Get CLion latest major version number (e.g. 252)
+     * Checks both release and EAP versions, returns the higher one
+     */
+    fun getLatestClionBuildNumber(): String {
+        val releaseInfo = getVersionInfo(JETBRAINS_API_RELEASE, "release")
+        val eapInfo = getVersionInfo(JETBRAINS_API_EAP, "eap")
+        
+        val releaseBuild = releaseInfo?.first?.toIntOrNull() ?: 0
+        val eapBuild = eapInfo?.first?.toIntOrNull() ?: 0
+        
+        return when {
+            releaseBuild == 0 && eapBuild == 0 -> {
+                throw GradleException("Unable to get CLion version information from JetBrains API")
+            }
+            eapBuild > releaseBuild -> {
+                println("✓ Using EAP version as latest: ${eapInfo?.first}")
+                eapInfo!!.first
+            }
+            else -> {
+                println("✓ Using release version as latest: ${releaseInfo?.first}")
+                releaseInfo!!.first
+            }
         }
     }
     
@@ -56,19 +81,28 @@ object VersionChecker {
         
         println("\n=== Version Check ===")
         println("Current untilBuild: $currentUntilBuild (major version: $currentBuild)")
-        println("CLion latest major version: $latestBuild")
+        println("CLion latest available major version: $latestBuild")
         
-        val isUpToDate = currentBuild == latestBuild
+        val currentBuildNum = currentBuild.toIntOrNull() ?: 0
+        val latestBuildNum = latestBuild.toIntOrNull() ?: 0
         
-        if (isUpToDate) {
-            println("✓ Version check passed! untilBuild is already the latest version")
+        // Allow currentBuild >= latestBuild (might be targeting newer EAP)
+        val isValid = currentBuildNum >= latestBuildNum
+        
+        if (isValid) {
+            if (currentBuildNum > latestBuildNum) {
+                println("✓ Version check passed! untilBuild ($currentBuild) is ahead of latest available version ($latestBuild)")
+                println("  This is acceptable - you may be targeting a newer EAP version")
+            } else {
+                println("✓ Version check passed! untilBuild matches the latest available version")
+            }
         } else {
             val message = """
                 ❌ Version check failed!
                 Current untilBuild: $currentUntilBuild
-                CLion latest version: $latestBuild
+                CLion latest available version: $latestBuild
                 
-                Please run the following command to update version:
+                Your untilBuild is outdated. Please run the following command to update:
                 ./gradlew updateUntilBuild
             """.trimIndent()
             
@@ -79,6 +113,6 @@ object VersionChecker {
             }
         }
         
-        return isUpToDate
+        return isValid
     }
 }
