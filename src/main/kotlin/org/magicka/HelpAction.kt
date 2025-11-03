@@ -14,27 +14,27 @@ class HelpAction : AnAction() {
     private val logger = Logger.getInstance(HelpAction::class.java)
     
     init {
-        // 设置国际化的菜单文本
+        // Set internationalized menu text
         templatePresentation.text = MagickaBundle.message("menu.about")
         templatePresentation.description = MagickaBundle.message("menu.about.description")
-        // 设置菜单图标
+        // Set menu icon
         templatePresentation.icon = MagickaIcons.MAGICKA_ICON
     }
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project
 
-        // 获取插件真实版本号（找不到时使用默认值）
+        // Get plugin real version number (use default value if not found)
         val pluginVersion = PluginManagerCore.getPlugin(PluginId.getId("com.kwai.magicka"))?.version ?: "1.0.0"
 
-        // 显示插件信息对话框
+        // Display plugin information dialog
         Messages.showInfoMessage(
             project,
             MagickaBundle.message("help.dialog.message", pluginVersion),
             MagickaBundle.message("help.dialog.title")
         )
         
-        // 在 IDE 日志中输出
+        // Output to IDE log
         logger.info("Magicka Plugin information displayed")
     }
 
@@ -45,7 +45,7 @@ class HelpAction : AnAction() {
                 .createNotification(title, content, NotificationType.INFORMATION)
                 .notify(project)
         } catch (e: Exception) {
-            // 如果通知组不存在，使用默认方式
+            // If notification group doesn't exist, use default method
             logger.info("Notification: $title - $content")
         }
     }

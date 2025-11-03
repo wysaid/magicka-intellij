@@ -25,8 +25,8 @@ import java.io.File
 import java.nio.charset.StandardCharsets
 
 /**
- * 处理 .sl.json 文件的 Action
- * 当用户右键点击 .sl.json 文件时触发
+ * Action for processing .sl.json files
+ * Triggered when user right-clicks on .sl.json files
  */
 class ProcessShaderJsonAction : AnAction() {
     private val logger = Logger.getInstance(ProcessShaderJsonAction::class.java)
@@ -38,7 +38,7 @@ class ProcessShaderJsonAction : AnAction() {
     }
     
     /**
-     * 处理结果数据类
+     * Processing result data class
      */
     data class ProcessResult(
         val success: Boolean,
@@ -48,10 +48,10 @@ class ProcessShaderJsonAction : AnAction() {
     )
     
     init {
-        // 设置国际化的菜单文本
+        // Set internationalized menu text
         templatePresentation.text = MagickaBundle.message("action.process.shader.json")
         templatePresentation.description = MagickaBundle.message("action.process.shader.json.description")
-        // 设置菜单图标
+        // Set menu icon
         templatePresentation.icon = MagickaIcons.MAGICKA_ICON
     }
 
@@ -64,18 +64,18 @@ class ProcessShaderJsonAction : AnAction() {
             val filePath = virtualFile.path
             val fileName = virtualFile.name
 
-            // 调试弹窗, 表示执行到这里了, 显示一下待处理的文件名和路径
+            // Debug dialog, indicating execution reached here, showing file name and path to process
             // Messages.showInfoMessage(project, "Debug: Reached here\nFile Name: $fileName\nFile Path: $filePath", "Debug")
 
-            // 后台执行命令，避免阻塞 UI
+            // Execute command in background to avoid blocking UI
             object : Task.Backgroundable(project, MagickaBundle.message("action.process.shader.json"), false) {
                 override fun run(indicator: ProgressIndicator) {
                     indicator.text = MagickaBundle.message("action.process.shader.json.description")
 
-                    // 统一的 CLI 就绪检查（npm、包安装、版本一次性检查）
+                    // Unified CLI readiness check (npm, package installation, version check all at once)
                     if (!ensureMagickaCliReady(project)) return
 
-                    // 根据文件后缀分流处理
+                    // Route processing based on file extension
                     when {
                         fileName.endsWith(".sl.json") -> {
                             val result = processShaderJson(filePath, project, fileName)
@@ -85,7 +85,7 @@ class ProcessShaderJsonAction : AnAction() {
                             processSpvFile(filePath, project, fileName)
                         }
                         else -> {
-                            // 非预期类型，忽略
+                            // Unexpected type, ignore
                             logger.info("Magicka action ignored for unsupported file: $fileName")
                         }
                     }
@@ -95,7 +95,7 @@ class ProcessShaderJsonAction : AnAction() {
     }
 
     override fun update(e: AnActionEvent) {
-        // 只有当选中的是 .sl.json 或者 .spv.vert / .spv.frag 文件时才显示此 action
+        // Only show this action when selected file is .sl.json or .spv.vert / .spv.frag
         val virtualFile = e.getData(CommonDataKeys.VIRTUAL_FILE)
         val name = virtualFile?.name ?: ""
         val isVisible = name.endsWith(".sl.json") || name.endsWith(".spv.vert") || name.endsWith(".spv.frag")
@@ -103,10 +103,10 @@ class ProcessShaderJsonAction : AnAction() {
     }
 
     /**
-     * 确保 Magicka CLI 环境就绪：包含 npm 检测、包安装检测，以及版本一次性检查。
+     * Ensure Magicka CLI environment is ready: includes npm detection, package installation detection, and one-time version check.
      */
     private fun ensureMagickaCliReady(project: com.intellij.openapi.project.Project?): Boolean {
-        // 检查 npm
+        // Check npm
         val npm = if (SystemInfo.isWindows) "npm.cmd" else "npm"
         if (!isExecutableAvailable(npm)) {
             showInfo(
@@ -117,7 +117,7 @@ class ProcessShaderJsonAction : AnAction() {
             return false
         }
 
-        // 检查 @ks-facemagic/magicka 是否全局安装
+        // Check if @ks-facemagic/magicka is globally installed
         val checkCmd = GeneralCommandLine(npm)
             .withParameters("ls", "-g", "@ks-facemagic/magicka", "--depth=0")
             .withCharset(StandardCharsets.UTF_8)
@@ -133,7 +133,7 @@ class ProcessShaderJsonAction : AnAction() {
             return false
         }
 
-        // 版本检查（仅本次 IDE 会话检查一次）
+        // Version check (only once per IDE session)
         if (!versionChecked) {
             checkMagickaVersion(project)
             versionChecked = true
@@ -142,8 +142,8 @@ class ProcessShaderJsonAction : AnAction() {
     }
 
     /**
-     * 处理 .sl.json 文件：调用 magicka 生成模板
-     * @return ProcessResult 处理结果
+     * Process .sl.json file: call magicka to generate template
+     * @return ProcessResult processing result
      */
     private fun processShaderJson(filePath: String, project: com.intellij.openapi.project.Project?, fileName: String): ProcessResult {
         val npx = if (SystemInfo.isWindows) "npx.cmd" else "npx"
@@ -171,13 +171,13 @@ class ProcessShaderJsonAction : AnAction() {
     }
 
     /**
-     * 处理 .spv.vert / .spv.frag 文件：查找关联的 .sl.json 并处理
+     * Process .spv.vert / .spv.frag files: find associated .sl.json and process
      */
     private fun processSpvFile(filePath: String, project: com.intellij.openapi.project.Project?, fileName: String) {
         logger.info("Magicka - Processing SPV shader file: name=$fileName, path=$filePath")
         
         try {
-            // 1. 获取当前文件的父目录，查找所有 .sl.json 文件
+            // 1. Get parent directory of current file, find all .sl.json files
             val currentFile = File(filePath)
             val parentDir = currentFile.parentFile
             if (parentDir == null || !parentDir.exists()) {
@@ -203,19 +203,19 @@ class ProcessShaderJsonAction : AnAction() {
             
             logger.info("Found ${slJsonFiles.size} .sl.json file(s) in directory: ${parentDir.absolutePath}")
             
-            // 统计匹配的配置文件数量
+            // Count matched configuration files
             var matchedConfigCount = 0
             val processedConfigs = mutableListOf<String>()
             
-            // 2. 遍历每个 .sl.json 文件
+            // 2. Iterate through each .sl.json file
             val gson = Gson()
             for (slJsonFile in slJsonFiles) {
                 
-                // 读取并解析 JSON
+                // Read and parse JSON
                 val jsonContent = slJsonFile.readText(Charsets.UTF_8)
                 val jsonObject = JsonParser.parseString(jsonContent).asJsonObject
                 
-                // 获取 data 数组
+                // Get data array
                 if (!jsonObject.has("data")) {
                     logger.warn("No 'data' field in ${slJsonFile.name}, skipping")
                     continue
@@ -227,7 +227,7 @@ class ProcessShaderJsonAction : AnAction() {
                     continue
                 }
                 
-                // 3. 过滤：只保留 vsh 或 fsh 匹配当前文件名的对象
+                // 3. Filter: only keep objects where vsh or fsh matches current filename
                 val filteredArray = dataArray.filter { element ->
                     if (!element.isJsonObject) return@filter false
                     val obj = element.asJsonObject
@@ -243,25 +243,25 @@ class ProcessShaderJsonAction : AnAction() {
                 
                 logger.info("Found ${filteredArray.size} matching entry(ies) for $fileName in ${slJsonFile.name}")
                 
-                // 找到了匹配项，记录成功
+                // Found matching items, record success
                 matchedConfigCount++
                 processedConfigs.add(slJsonFile.name)
                 
-                // 4. 构建结果 JSON 对象
+                // 4. Build result JSON object
                 val resultJson = JsonObject()
                 val resultArray = com.google.gson.JsonArray()
                 filteredArray.forEach { resultArray.add(it) }
                 resultJson.add("data", resultArray)
                 
-                // 5. 保存为 .processing.sl.json 临时文件
+                // 5. Save as .processing.sl.json temporary file
                 val processingFile = File(parentDir, ".processing.sl.json")
                 processingFile.writeText(gson.toJson(resultJson), Charsets.UTF_8)
                 logger.info("Created temporary processing file: ${processingFile.absolutePath}")
                 
-                // 6. 调用 processShaderJson 处理临时文件
+                // 6. Call processShaderJson to process temporary file
                 val result = processShaderJson(processingFile.absolutePath, project, processingFile.name)
                 
-                // 清理临时文件
+                // Clean up temporary file
                 try {
                     if (processingFile.exists()) {
                         processingFile.delete()
@@ -271,7 +271,7 @@ class ProcessShaderJsonAction : AnAction() {
                     logger.warn("Failed to delete temporary file: ${processingFile.absolutePath}", e)
                 }
                 
-                // 检查处理结果，失败则立即停止并显示错误
+                // Check processing result, stop immediately and show error if failed
                 if (!result.success) {
                     logger.warn("Processing failed for ${slJsonFile.name} with SPV file $fileName")
                     val errorDetail = result.stderr.ifBlank { result.stdout }
@@ -283,13 +283,13 @@ class ProcessShaderJsonAction : AnAction() {
                     return
                 }
                 
-                // 记录成功处理
+                // Record successful processing
                 logger.info("Successfully processed ${slJsonFile.name} for $fileName")
             }
             
-            // 7. 显示最终统一的处理结果（只要找到匹配的配置文件就算成功）
+            // 7. Display final unified processing result (success if matched config files found)
             if (matchedConfigCount > 0) {
-                // 找到了匹配的配置文件，算作成功
+                // Found matched configuration files, consider success
                 val configList = processedConfigs.joinToString(", ")
                 NotificationGroupManager.getInstance()
                     .getNotificationGroup("Magicka Plugin Notifications")

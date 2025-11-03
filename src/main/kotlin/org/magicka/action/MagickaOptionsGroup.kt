@@ -7,19 +7,19 @@ import com.intellij.openapi.actionSystem.CommonDataKeys
 import org.magicka.MagickaBundle
 
 /**
- * Magicka 工具菜单组
- * 在工具菜单中显示 Magicka 相关选项
+ * Magicka tool menu group
+ * Displays Magicka-related options in the Tools menu
  */
 class MagickaOptionsGroup : ActionGroup() {
     
     init {
-        // 设置国际化的菜单文本
+        // Set internationalized menu text
         templatePresentation.text = MagickaBundle.message("menu.magicka.options")
         templatePresentation.description = MagickaBundle.message("menu.magicka.options.description")
     }
     
     override fun getChildren(e: AnActionEvent?): Array<AnAction> {
-        // 返回空数组，因为帮助菜单已经在 plugin.xml 中定义
+        // Return empty array because the help menu is already defined in plugin.xml
         return emptyArray()
     }
 }

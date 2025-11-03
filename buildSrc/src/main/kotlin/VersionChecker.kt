@@ -16,7 +16,7 @@ object VersionChecker {
     private const val JETBRAINS_API = "https://data.services.jetbrains.com/products/releases?code=CL&latest=true&type=release"
     
     /**
-     * 获取 CLion 最新的主版本号 (例如 252)
+     * Get CLion latest major version number (e.g. 252)
      */
     fun getLatestClionBuildNumber(): String {
         return try {
@@ -25,50 +25,50 @@ object VersionChecker {
             val response = gson.fromJson(json, JetBrainsProductResponse::class.java)
             
             val latestRelease = response.CL.firstOrNull()
-                ?: throw GradleException("无法从 JetBrains API 获取 CLion 版本信息")
+                ?: throw GradleException("Unable to get CLion version information from JetBrains API")
             
-            // 提取主版本号 (例如从 "252.100.200" 提取 "252")
+            // Extract major version number (e.g. extract "252" from "252.100.200")
             val buildNumber = latestRelease.build.split(".").firstOrNull()
-                ?: throw GradleException("无法解析 CLion build 号: ${latestRelease.build}")
+                ?: throw GradleException("Unable to parse CLion build number: ${latestRelease.build}")
             
-            println("✓ CLion 最新版本: ${latestRelease.version} (build: ${latestRelease.build})")
-            println("✓ 主版本号: $buildNumber")
+            println("✓ CLion latest version: ${latestRelease.version} (build: ${latestRelease.build})")
+            println("✓ Major version number: $buildNumber")
             
             buildNumber
         } catch (e: Exception) {
-            throw GradleException("获取 CLion 最新版本失败: ${e.message}", e)
+            throw GradleException("Failed to get CLion latest version: ${e.message}", e)
         }
     }
     
     /**
-     * 从 untilBuild 字符串中提取主版本号 (例如从 "252.*" 提取 "252")
+     * Extract major version number from untilBuild string (e.g. extract "252" from "252.*")
      */
     fun extractBuildNumber(untilBuild: String): String {
         return untilBuild.replace(".*", "").trim()
     }
     
     /**
-     * 检查 untilBuild 是否匹配最新版本
+     * Check if untilBuild matches latest version
      */
     fun checkVersion(currentUntilBuild: String, throwOnMismatch: Boolean = true): Boolean {
         val latestBuild = getLatestClionBuildNumber()
         val currentBuild = extractBuildNumber(currentUntilBuild)
         
-        println("\n=== 版本检查 ===")
-        println("当前 untilBuild: $currentUntilBuild (主版本: $currentBuild)")
-        println("CLion 最新主版本: $latestBuild")
+        println("\n=== Version Check ===")
+        println("Current untilBuild: $currentUntilBuild (major version: $currentBuild)")
+        println("CLion latest major version: $latestBuild")
         
         val isUpToDate = currentBuild == latestBuild
         
         if (isUpToDate) {
-            println("✓ 版本检查通过！untilBuild 已是最新版本")
+            println("✓ Version check passed! untilBuild is already the latest version")
         } else {
             val message = """
-                ❌ 版本检查失败！
-                当前 untilBuild: $currentUntilBuild
-                CLion 最新版本: $latestBuild
+                ❌ Version check failed!
+                Current untilBuild: $currentUntilBuild
+                CLion latest version: $latestBuild
                 
-                请运行以下命令更新版本：
+                Please run the following command to update version:
                 ./gradlew updateUntilBuild
             """.trimIndent()
             
