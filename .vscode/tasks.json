@@ -51,7 +51,8 @@
             "presentation": {
                 "reveal": "silent",
                 "close": true
-            }
+            },
+            "dependsOn": "Build Plugin"
         }
     ]
 }
