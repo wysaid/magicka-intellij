@@ -300,7 +300,7 @@ class ProcessShaderJsonAction : AnAction() {
                     )
                     .notify(project)
             } else {
-                // 一个都没找到，算作失败
+                // None found, consider as failure
                 NotificationGroupManager.getInstance()
                     .getNotificationGroup("Magicka Plugin Notifications")
                     .createNotification(
@@ -344,7 +344,7 @@ class ProcessShaderJsonAction : AnAction() {
                 logger.info("Detected magicka version: $versionStr")
                 
                 if (compareVersions(versionStr, MIN_VERSION) < 0) {
-                    // 版本低于最低要求，显示警告
+                    // Version is lower than the minimum required, show warning
                     val upgradeCmd = "npm update -g @ks-facemagic/magicka --registry https://npm.corp.kuaishou.com"
                     Messages.showWarningDialog(
                         project,
@@ -359,8 +359,8 @@ class ProcessShaderJsonAction : AnAction() {
     }
 
     /**
-     * 比较两个语义版本号
-     * @return 负数表示 v1 < v2，0 表示相等，正数表示 v1 > v2
+     * Compare two semantic version numbers.
+     * @return Negative if v1 < v2, zero if equal, positive if v1 > v2.
      */
     private fun compareVersions(v1: String, v2: String): Int {
         try {
@@ -377,7 +377,7 @@ class ProcessShaderJsonAction : AnAction() {
             return 0
         } catch (e: Exception) {
             logger.warn("Failed to compare versions: $v1 vs $v2", e)
-            return 0 // 无法比较时认为版本相同
+            return 0 // Consider versions equal if comparison fails
         }
     }
 
@@ -385,7 +385,7 @@ class ProcessShaderJsonAction : AnAction() {
         logger.info("Running: ${cmd.commandLineString}")
         return try {
             val handler = CapturingProcessHandler(cmd)
-            handler.runProcess(60_000, true) // 60s 超时
+            handler.runProcess(60_000, true) // 60s timeout
         } catch (t: Throwable) {
             val po = ProcessOutput()
             po.appendStderr(t.message ?: t.toString())
@@ -412,7 +412,7 @@ class ProcessShaderJsonAction : AnAction() {
     }
     
     /**
-     * 显示处理结果通知
+     * Show processing result notification
      */
     private fun showProcessResult(result: ProcessResult, project: com.intellij.openapi.project.Project?, fileName: String) {
         if (result.success) {

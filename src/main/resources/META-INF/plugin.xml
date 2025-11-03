@@ -1,10 +1,10 @@
 <idea-plugin require-restart="false">
     <id>com.kwai.magicka</id>
     <name>Magicka</name>
-    <!-- 版本号由 Gradle 构建时自动注入 -->
+    <!-- Version number is automatically injected by Gradle during build -->
     <vendor email="wangyang@kuaishou.com" url="https://git.corp.kuaishou.com/facemagic/magicka-intellij">Kuaishou FaceMagic Team</vendor>
     
-    <!-- 国际化资源包 -->
+    <!-- Internationalization resource bundle -->
     <resource-bundle>messages.MagickaBundle</resource-bundle>
     
     <description>
@@ -19,30 +19,30 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- 注册通知组 -->
+        <!-- Register notification group -->
         <notificationGroup id="Magicka Plugin Notifications" displayType="BALLOON" isLogByDefault="true"/>
     </extensions>
 
     <actions>
-        <!-- Magicka 菜单组 - 在工具菜单中显示为带子菜单的选项 -->
+    <!-- Magicka menu group - displayed as a submenu option in the Tools menu -->
         <group id="org.magicka.MagickaOptionsGroup" 
                class="org.magicka.action.MagickaOptionsGroup"
                popup="true">
             
-            <!-- 帮助/关于 Action -->
+            <!-- Help/About Action -->
             <action id="org.magicka.HelpAction"
                     class="org.magicka.HelpAction"/>
             
-            <!-- 添加到工具菜单 -->
+            <!-- Add to Tools menu -->
             <add-to-group group-id="ToolsMenu" anchor="first"/>
         </group>
         
-        <!-- 处理 .sl.json 文件的 Action - 添加到编辑器右键菜单 -->
+    <!-- Action for processing .sl.json files - added to editor context menu -->
         <action id="org.magicka.ProcessShaderJsonAction"
                 class="org.magicka.action.ProcessShaderJsonAction">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
             <add-to-group group-id="ProjectViewPopupMenu" anchor="first"/>
-            <!-- 快捷键绑定：ctrl + alt + meta + L（mac 为 ctrl+cmd+alt+L，win 为 ctrl+win+alt+L） -->
+            <!-- Keyboard shortcut: ctrl + alt + meta + L (mac: ctrl+cmd+alt+L, win: ctrl+win+alt+L) -->
             <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt meta L"/>
             <keyboard-shortcut keymap="Mac OS X" first-keystroke="ctrl alt meta L"/>
         </action>
