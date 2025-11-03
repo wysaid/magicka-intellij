@@ -174,8 +174,8 @@ npm update -g @ks-facemagic/magicka --registry https://npm.corp.kuaishou.com
 
 ### 获取帮助
 
-- 项目地址: <https://git.corp.kuaishou.com/facemagic/magicka-intellij>
-- 问题反馈: <https://git.corp.kuaishou.com/facemagic/magicka-intellij/-/issues>
+- 项目地址: <https://github.com/wysaid/magicka-intellij>
+- 问题反馈: <https://github.com/wysaid/magicka-intellij/issues>
 
 ---
 

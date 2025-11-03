@@ -2,7 +2,7 @@
 
 ✨ 为视觉特效开发者打造的 Shader 代码生成工具
 
-[![Build Status](https://git.corp.kuaishou.com/facemagic/magicka-intellij/badges/master/pipeline.svg)](https://git.corp.kuaishou.com/facemagic/magicka-intellij/-/pipelines)
+[![Build Status](https://github.com/wysaid/magicka-intellij/actions/workflows/ci.yml/badge.svg)](https://github.com/wysaid/magicka-intellij/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 中文版本 | [English](./README.md)
@@ -44,7 +44,7 @@ npm install -g @ks-facemagic/magicka --registry https://npm.corp.kuaishou.com
 
 ```bash
 # 克隆仓库
-git clone https://git.corp.kuaishou.com/facemagic/magicka-intellij.git
+git clone https://github.com/wysaid/magicka-intellij.git
 cd magicka-intellij
 
 # 构建插件
@@ -247,8 +247,8 @@ A: 确保同目录下存在 `.sl.json` 文件,并且文件中的 `data` 数组�
 
 ## 🔗 相关链接
 
-- [GitLab 仓库](https://git.corp.kuaishou.com/facemagic/magicka-intellij)
-- [Issue 追踪](https://git.corp.kuaishou.com/facemagic/magicka-intellij/-/issues)
+- [GitHub 仓库](https://github.com/wysaid/magicka-intellij)
+- [Issue 追踪](https://github.com/wysaid/magicka-intellij/issues)
 - [内部 npm 源](https://npm.corp.kuaishou.com)
 
 ---
@@ -261,7 +261,7 @@ A: 确保同目录下存在 `.sl.json` 文件,并且文件中的 `data` 数组�
 
 - **团队**: 快手 FaceMagic 团队
 - **邮箱**: <wangyang@kuaishou.com>
-- **代码仓库**: [magicka-intellij](https://git.corp.kuaishou.com/facemagic/magicka-intellij)
+- **代码仓库**: [magicka-intellij](https://github.com/wysaid/magicka-intellij)
 
 我们欢迎社区贡献！详见[贡献指南](#-贡献)部分。
 

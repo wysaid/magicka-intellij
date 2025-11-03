@@ -2,7 +2,7 @@
 
 ✨ Shader Code Generation Tool for Visual Effects Developers
 
-[![Build Status](https://git.corp.kuaishou.com/facemagic/magicka-intellij/badges/master/pipeline.svg)](https://git.corp.kuaishou.com/facemagic/magicka-intellij/-/pipelines)
+[![Build Status](https://github.com/wysaid/magicka-intellij/actions/workflows/ci.yml/badge.svg)](https://github.com/wysaid/magicka-intellij/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [中文版本](./README_zh_CN.md) | English
@@ -44,7 +44,7 @@ npm install -g @ks-facemagic/magicka --registry https://npm.corp.kuaishou.com
 
 ```bash
 # Clone the repository
-git clone https://git.corp.kuaishou.com/facemagic/magicka-intellij.git
+git clone https://github.com/wysaid/magicka-intellij.git
 cd magicka-intellij
 
 # Build the plugin
@@ -247,8 +247,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Related Links
 
-- [GitLab Repository](https://git.corp.kuaishou.com/facemagic/magicka-intellij)
-- [Issue Tracker](https://git.corp.kuaishou.com/facemagic/magicka-intellij/-/issues)
+- [GitHub Repository](https://github.com/wysaid/magicka-intellij)
+- [Issue Tracker](https://github.com/wysaid/magicka-intellij/issues)
 - [Internal npm Registry](https://npm.corp.kuaishou.com)
 
 ---
@@ -261,7 +261,7 @@ This project is maintained by the **Kuaishou FaceMagic Team**.
 
 - **Organization**: Kuaishou FaceMagic Team
 - **Email**: <wangyang@kuaishou.com>
-- **Repository**: [magicka-intellij](https://git.corp.kuaishou.com/facemagic/magicka-intellij)
+- **Repository**: [magicka-intellij](https://github.com/wysaid/magicka-intellij)
 
 We welcome contributions from the community! See the [Contributing](#-contributing) section for more details.
 

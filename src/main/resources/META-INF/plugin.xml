@@ -2,7 +2,7 @@
     <id>com.kwai.magicka</id>
     <name>Magicka</name>
     <!-- Version number is automatically injected by Gradle during build -->
-    <vendor email="wangyang@kuaishou.com" url="https://git.corp.kuaishou.com/facemagic/magicka-intellij">Kuaishou FaceMagic Team</vendor>
+    <vendor email="wangyang@kuaishou.com" url="https://github.com/wysaid/magicka-intellij">Kuaishou FaceMagic Team</vendor>
     
     <!-- Internationalization resource bundle -->
     <resource-bundle>messages.MagickaBundle</resource-bundle>
