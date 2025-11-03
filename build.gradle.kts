@@ -23,7 +23,7 @@ intellij {
 tasks.patchPluginXml {
     version.set(project.version.toString())
     sinceBuild.set("233")
-    untilBuild.set("252.*")  // 2025.2 - current known latest main branch
+    untilBuild.set("253.*")  // 2025.3 - updated to support CLion 2025.2.3 and later
     changeNotes.set("""
         <h3>Version ${project.version}</h3>
         <ul>
